@@ -114,7 +114,7 @@ def load(name: str, device: Union[str, torch.device] = "cuda" if torch.cuda.is_a
         model = build_model(state_dict or model.state_dict()).to(device)
         if str(device) == "cpu":
             model.float()
-        return model, _transform(model.visual.input_resolution, d=device)
+        return model, _transform(model.visual.input_resolution, device=device)
 
     # patch the device names
     device_holder = torch.jit.trace(lambda: torch.ones([]).to(torch.device(device)), example_inputs=[])
